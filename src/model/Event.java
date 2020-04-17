@@ -10,25 +10,28 @@ import java.util.ArrayList;
 
 public class Event {
 	protected ArrayList<String> keywords;
-	protected ArrayList<Object> milestones;
+	protected ArrayList<String> relatedEvents;
+	protected ArrayList<Milestone> milestones;
+	protected YearRange range;
 	protected String name;
 	protected String uid;
 	protected int age;
 	private int year;
-	//related events
 	//people (relationships)
 	//weather
-	//year range
 	
-	public Event(ArrayList<String> keywords, ArrayList<Object> milestones, String name, String uid, int age, int year) {
+	public Event(ArrayList<String> keywords, ArrayList<String> relatedEvents, ArrayList<Milestone> milestones, YearRange range, String name, String uid, int age, int year) {
 		this.keywords = keywords;
+		this.relatedEvents = relatedEvents;
 		this.milestones = milestones;
+		this.range = range;
 		this.name = name;
 		this.uid = uid;
 		this.age = age;
 		this.year = year;
 	}
 	
+	// TODO:
 	/*TO IMPLEMENT*/
 	// method to search all fields for keywords
 	
@@ -37,6 +40,99 @@ public class Event {
 	// method to search relationships from people
 	/* ********** */
 	
+	/**
+	 * Fetch related events
+	 * @return relatedEvents
+	 */
+	public ArrayList<String> getRelatedEvents() {
+		return relatedEvents;
+	}
+	
+	/**
+	 * Adds a related event to the list
+	 * @param uid of a related event
+	 * @return true if uid not already in list
+	 */
+	public boolean addRelatedEvent(String event) {
+		boolean added = false;
+		
+		if(!relatedEvents.contains(event)) {
+			relatedEvents.add(event);
+			added = true;
+		}
+		
+		return added;
+	}
+	
+	/**
+	 * Determine if an event is related to this one
+	 * @param uid of a potentially related event
+	 * @return true if related
+	 */
+	public boolean isRelated(String event) {
+		return relatedEvents.contains(event);
+	}
+	
+	/**
+	 * Add a milestone to the list if not already present
+	 * @param Milestone to add
+	 * @return true if not already in list
+	 */
+	public boolean addMilestone(Milestone milestone) {
+		boolean added = false;
+		
+		if(!milestones.contains(milestone)) {
+			milestones.add(milestone);
+			added = true;
+		}
+		
+		return added;
+	}
+	
+	/**
+	 * Remove a milestone from the list if it is present
+	 * @param milestone to remove
+	 * @return true if milestone was present
+	 */
+	public boolean removeMilestone(Milestone milestone) {
+		boolean removed = false;
+		
+		if(milestones.contains(milestone)) {
+			milestones.remove(milestone);
+			removed = true;
+		}
+		
+		return removed;
+	}
+	
+	/**
+	 * Returns true if event is specific milestone in list
+	 * @return true if milestone in list
+	 */
+	public boolean isParticularMilestone(Milestone milestone) {
+		boolean isParticularMilestone = false;
+		
+		if(milestones.contains(milestone)) {
+			isParticularMilestone = true; 
+		}
+		
+		return isParticularMilestone;
+	}
+
+	/**
+	 * @return the range
+	 */
+	public YearRange getRange() {
+		return range;
+	}
+
+	/**
+	 * @param range the range to set
+	 */
+	public void setRange(YearRange range) {
+		this.range = range;
+	}
+
 	/**
 	 * Get the name of the event.
 	 * @return name
@@ -60,7 +156,7 @@ public class Event {
 	public int getAge() {
 		return age;
 	}
-	
+
 	/**
 	 * Set author's age
 	 * @param age of author
