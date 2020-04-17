@@ -5,24 +5,25 @@ import java.util.ArrayList;
 /**
  * Represents a generic event.
  * @author Dan Martineau
- * @version 0.0
+ * @version 0.1
  */
 
 public class Event {
 	protected ArrayList<String> keywords;
 	protected ArrayList<String> relatedEvents;
+	protected ArrayList<Person> people;
 	protected ArrayList<Milestone> milestones;
 	protected YearRange range;
 	protected String name;
 	protected String uid;
 	protected int age;
-	private int year;
-	//people (relationships)
+	protected int year;
 	//weather
 	
-	public Event(ArrayList<String> keywords, ArrayList<String> relatedEvents, ArrayList<Milestone> milestones, YearRange range, String name, String uid, int age, int year) {
+	public Event(ArrayList<String> keywords, ArrayList<String> relatedEvents, ArrayList<Person> people, ArrayList<Milestone> milestones, YearRange range, String name, String uid, int age, int year) {
 		this.keywords = keywords;
 		this.relatedEvents = relatedEvents;
+		this.people = people;
 		this.milestones = milestones;
 		this.range = range;
 		this.name = name;
@@ -36,8 +37,6 @@ public class Event {
 	// method to search all fields for keywords
 	
 	// method to search keywords for keyword
-
-	// method to search relationships from people
 	/* ********** */
 	
 	/**
@@ -69,8 +68,91 @@ public class Event {
 	 * @param uid of a potentially related event
 	 * @return true if related
 	 */
-	public boolean isRelated(String event) {
+	public boolean isEventRelated(String event) {
 		return relatedEvents.contains(event);
+	}
+	
+	/**
+	 * @return the people
+	 */
+	public ArrayList<Person> getPeople() {
+		return new ArrayList<Person>(people);
+	}
+	
+	/**
+	 * Add a person
+	 * @param person to add
+	 * @return true if added, false if already present
+	 */
+	public boolean addPerson(Person person) {
+		boolean added = false;
+		boolean match = false;
+		
+		for (Person i : people) {
+			if(i.equals(person)) {
+				match = true;
+				break;
+			}
+		}
+		
+		if(!match) {
+			people.add(person);
+			added = true;
+		}
+		
+		return added;
+	}
+	
+	/**
+	 * Remove a person if present
+	 * @param person to remove
+	 * @return true if removed, false if not present
+	 */
+	public boolean removePerson(Person person) {
+		boolean removed = false;
+		
+		for(int i = 0; i < people.size(); i++) {
+			if(people.get(i).equals(person)) {
+				people.remove(i);
+				removed = true;
+			}
+		}
+		
+		return removed;
+	}
+	
+	/**
+	 * Tells if person is present
+	 * @param person to check presence of
+	 */
+	public boolean hasPerson(Person person) {
+		boolean match = false;
+		
+		for (Person i : people) {
+			if(i.equals(person)) {
+				match = true;
+				break;
+			}
+		}
+		
+		return match;
+	}
+	
+	/**
+	 * Tells if this event involves any person with a given relationship
+	 * @param relationship 
+	 * @return true if present
+	 */
+	public boolean hasRelationshipPersonal(Relationship relationship) {
+		boolean isPresent = false;
+		
+		for (Person person : people) {
+			if(person.hasRelationship(relationship)) {
+				isPresent = true;
+			}
+		}
+		
+		return isPresent;
 	}
 	
 	/**

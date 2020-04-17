@@ -3,7 +3,7 @@ package model;
 /**
  * Immutable -- Represents specific milestone
  * @author Dan Martineau
- * @version 0.1
+ * @version 0.2
  */
 
 public class Milestone {
@@ -16,7 +16,7 @@ public class Milestone {
 	}
 	
 	public boolean equals(Milestone milestone) {
-		return milestone.getName().equals(name) && milestone.getUid().equals(uid);
+		return milestone.getUid().equals(uid);
 	}
 
 	/**
