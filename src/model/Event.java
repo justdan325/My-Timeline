@@ -18,9 +18,9 @@ public class Event {
 	protected String uid;
 	protected int age;
 	protected int year;
-	//weather
 	
-	public Event(ArrayList<String> keywords, ArrayList<String> relatedEvents, ArrayList<Person> people, ArrayList<Milestone> milestones, YearRange range, String name, String uid, int age, int year) {
+	public Event(ArrayList<String> keywords, ArrayList<String> relatedEvents, ArrayList<Person> people,
+			ArrayList<Milestone> milestones, YearRange range, String name, String uid, int age, int year) {
 		this.keywords = keywords;
 		this.relatedEvents = relatedEvents;
 		this.people = people;
