@@ -73,6 +73,52 @@ public class FileCMD
 		inputFile.close();
 		return str;
 	}
+	
+	/**
+	Read contents of a file into string array
+	@param file name
+	@return file contents
+	*/
+	public static String[] readFileLines(String fileName)
+	{
+		File file;
+		Scanner inputFile;
+		String errMess = null;
+
+
+		file = new File(fileName);
+		if(!file.exists())
+			return null;
+
+		try
+		{
+			inputFile = new Scanner(file);
+		}
+
+		catch(FileNotFoundException e)
+		{
+			errMess = "\nFileNotFoundException when reading " + fileName + "\n" + Prin.getStackTrace(e);
+			return null;
+		}
+
+		assert errMess == null : errMess;
+
+		ArrayList<String> lines = new ArrayList<String>();
+
+		while(inputFile.hasNext())
+		{
+			lines.add(inputFile.nextLine());
+		}
+		
+		inputFile.close();
+		
+		String[] fileLines = new String[lines.size()];
+		for(int i = 0; i < fileLines.length; i++) {
+			fileLines[i] = lines.get(i);
+		}
+		
+		return fileLines;
+	}
 
 	/**
 	Write a sting to a file
